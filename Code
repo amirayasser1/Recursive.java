@@ -1,0 +1,137 @@
+import java.util.Scanner;
+public class recursion {
+//Methods:
+public static int sum(int k){
+if(k>0)
+return k + sum(k-1);
+else
+return 0;
+    }
+//the following method checks the validity of the input with a variable number of inputs as numbers
+public static double checkInput() {
+Scanner sc = new Scanner(System.in);
+do {
+try {
+double z = sc.nextDouble();
+//to prevent StackOverFlow exception we limit the number allowed for the operations
+if(z>10000){
+System.out.println("Big number. Please try again.");
+                }
+else
+return z;
+            }
+catch (Exception e) {
+System.out.println("Invalid input. Please try again.");
+sc.nextLine();
+            }
+        }while(true);
+    }
+public static int sum(double k){
+if (k>0)
+return (int) Math.round(k+sum(k-1));
+else
+return 0;
+    }
+public static int sum(int start, int end){
+if (end>start)
+return end+sum(start,end-1);
+else
+return end;
+    }
+public static void main(String[] args) {
+Scanner myObj = new Scanner(System.in);
+boolean stopProgram;
+do{
+// Input Validation Logic:
+int choice;
+System.out.println("Choose the number of parameters to pass to SUM:");
+System.out.println("1\n2");
+// A do-while loop which exits only if the user inputs a valid input.
+do {
+choice = (int) checkInput();
+if (choice != 1 && choice != 2)
+System.out.println("Please choose again whether you want 1 or 2 parameters.");
+else break;
+        }while(true);
+// End of the first input validation
+int sumRes=0;
+switch(choice) {
+case 1:
+System.out.println("Choose the data type of parameter to pass to SUM:");
+System.out.println("1. int\n2. double");
+int select;
+String type;
+//type represents the type data type given by the user.
+/*The following Loops accepts the input from the user in two forms, whether he inputs the number of the
+                choice he wants or he inputs the name of the datatype as (int or float). \
+                The case of the input doesn't matter.
+                 */
+do {
+type = myObj.nextLine();
+if(type.equalsIgnoreCase("int") || type.equalsIgnoreCase("integer") ||
+type.equals("1")){
+select = 1;
+break;
+                    }
+else if (type.equalsIgnoreCase("double")||type.equalsIgnoreCase("float") ||
+type.equals("2")) {
+select = 2;
+break;
+                    } else System.out.println("Invalid Input, Please try again.");
+                } while(true);
+//end of the input validation loop
+if (select==1) {
+int input;
+do {
+System.out.println("Please enter an integer");
+input = (int) checkInput();
+if (input<0){
+System.out.println("Please enter a positive integer");
+                        }
+                    }while(input<0);
+sumRes = sum(input);
+                }
+else {
+double input;
+do{
+System.out.println("Please enter a float");
+input= checkInput();
+if (input<0){
+System.out.println("Please enter a positive float");
+                        }
+                    }while(input<0);
+sumRes=sum(input);
+                }
+break;
+case 2:
+System.out.println("Choose the two integers to pass to SUM:");
+int min = (int) checkInput();
+int max = (int) checkInput();
+if (min > max) {
+int temp = max;
+max = min;
+min = temp;
+                }
+sumRes = sum(min, max);
+break;
+                }
+System.out.println(sumRes);
+String flag;
+do {
+System.out.println("Would you like to continue?");
+flag = myObj.nextLine();
+if (flag.equals("1") || flag.equalsIgnoreCase("Yes")){
+stopProgram = false;
+break;
+            }
+else if(flag.equalsIgnoreCase("no") || flag.equals("0")) {
+stopProgram = true;
+break;
+            }
+else{
+System.out.println("Invalid Input. Would you like to continue?");
+            }
+        } while(true);
+        }while(!stopProgram);
+    }
+}
